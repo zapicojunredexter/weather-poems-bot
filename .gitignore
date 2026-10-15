@@ -1,0 +1,29 @@
+# Dependencies (the project has none, but just in case)
+node_modules/
+
+# Build output (created by `npm run build` / GitHub Actions)
+_site/
+
+# Local-only state
+data/*.tmp
+data/last-run.json
+
+# Secrets: never commit these (the project needs no keys, this is a safety net)
+.env
+.env.*
+*.pem
+*.key
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Local AI-assistant / tooling config
+.claude/

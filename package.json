@@ -1,0 +1,17 @@
+{
+  "name": "weather-poetry-bot",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Turns one Philippine city's weather into a short AI poem every Monday (GitHub Actions + Pages).",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "generate:mock": "node scripts/generate.mjs --mock",
+    "test": "node scripts/test.mjs",
+    "serve": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs"
+  }
+}

@@ -1,0 +1,85 @@
+name: Weekly weather poem
+
+# Automated, but owner-controlled: the repository owner may disable this workflow
+# at any time without notice (Actions tab → this workflow → ⋯ → Disable workflow).
+
+on:
+  schedule:
+    # Every Monday at 7:00 AM Philippine time (UTC+8, no daylight saving)
+    # = Sunday 23:00 UTC. Cron always uses UTC, so the day is Sunday (0) here.
+    # GitHub can start scheduled runs late during busy periods.
+    - cron: '0 23 * * 0'
+  workflow_dispatch: # "Run workflow" button on the Actions tab
+  push:
+    branches: [main] # redeploy the page when code changes (no new poem)
+
+permissions:
+  contents: write # commit the updated data/poems.json
+  pages: write
+  id-token: write
+
+# Never run two at once (a manual run during the scheduled one would race on poems.json).
+concurrency:
+  group: weekly-poem
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # No "npm install": the project has zero dependencies.
+
+      - name: Self-checks
+        run: npm test
+
+      - name: Write this week's poem
+        id: poem
+        if: github.event_name != 'push'
+        # If the weather or the AI fails, the script saves nothing and exits 1.
+        # We still publish the existing page, so a failure never takes the site down.
+        continue-on-error: true
+        run: npm run generate
+
+      - name: Report a skipped day
+        if: steps.poem.outcome == 'failure'
+        run: echo "::warning::No poem this week. The weather or AI service was unavailable, so nothing was saved. Use Run workflow to try again."
+
+      - name: Commit data/poems.json
+        if: steps.poem.outcome == 'success'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/poems.json
+          if git diff --cached --quiet; then
+            echo "No new poem to commit."
+          else
+            git commit -m "Weekly weather poem $(TZ=Asia/Manila date +%F)"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
+
+      - name: Build static site
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

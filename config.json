@@ -1,0 +1,133 @@
+{
+  "cities": [
+    {
+      "name": "Manila",
+      "region": "Metro Manila",
+      "latitude": 14.5995,
+      "longitude": 120.9842
+    },
+    {
+      "name": "Quezon City",
+      "region": "Metro Manila",
+      "latitude": 14.676,
+      "longitude": 121.0437
+    },
+    {
+      "name": "Makati",
+      "region": "Metro Manila",
+      "latitude": 14.5547,
+      "longitude": 121.0244
+    },
+    {
+      "name": "Taguig",
+      "region": "Metro Manila",
+      "latitude": 14.5176,
+      "longitude": 121.0509
+    },
+    {
+      "name": "Pasig",
+      "region": "Metro Manila",
+      "latitude": 14.5764,
+      "longitude": 121.0851
+    },
+    {
+      "name": "Baguio",
+      "region": "Benguet",
+      "latitude": 16.4023,
+      "longitude": 120.596
+    },
+    {
+      "name": "Vigan",
+      "region": "Ilocos Sur",
+      "latitude": 17.5747,
+      "longitude": 120.3869
+    },
+    {
+      "name": "Angeles",
+      "region": "Pampanga",
+      "latitude": 15.145,
+      "longitude": 120.5887
+    },
+    {
+      "name": "Tagaytay",
+      "region": "Cavite",
+      "latitude": 14.1153,
+      "longitude": 120.9621
+    },
+    {
+      "name": "Legazpi",
+      "region": "Albay",
+      "latitude": 13.1391,
+      "longitude": 123.7438
+    },
+    {
+      "name": "Puerto Princesa",
+      "region": "Palawan",
+      "latitude": 9.7392,
+      "longitude": 118.7353
+    },
+    {
+      "name": "Iloilo City",
+      "region": "Iloilo",
+      "latitude": 10.7202,
+      "longitude": 122.5621
+    },
+    {
+      "name": "Bacolod",
+      "region": "Negros Occidental",
+      "latitude": 10.6765,
+      "longitude": 122.9509
+    },
+    {
+      "name": "Cebu City",
+      "region": "Cebu",
+      "latitude": 10.3157,
+      "longitude": 123.8854
+    },
+    {
+      "name": "Lapu-Lapu",
+      "region": "Cebu",
+      "latitude": 10.3103,
+      "longitude": 123.9494
+    },
+    {
+      "name": "Tacloban",
+      "region": "Leyte",
+      "latitude": 11.2443,
+      "longitude": 125.004
+    },
+    {
+      "name": "Cagayan de Oro",
+      "region": "Misamis Oriental",
+      "latitude": 8.4542,
+      "longitude": 124.6319
+    },
+    {
+      "name": "Davao City",
+      "region": "Davao del Sur",
+      "latitude": 7.1907,
+      "longitude": 125.4553
+    },
+    {
+      "name": "General Santos",
+      "region": "South Cotabato",
+      "latitude": 6.1164,
+      "longitude": 125.1716
+    },
+    {
+      "name": "Zamboanga City",
+      "region": "Zamboanga del Sur",
+      "latitude": 6.9214,
+      "longitude": 122.079
+    }
+  ],
+  "country": "Philippines",
+  "timezone": "Asia/Manila",
+  "maxPoems": 5,
+  "mockMode": false,
+  "apiCooldownSeconds": 60,
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8080
+  }
+}

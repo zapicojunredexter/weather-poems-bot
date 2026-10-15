@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A weekly AI-generated poem inspired by the weather in a city in the Philippines." />
+  <title>Weather Poetry Diary</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤️</text></svg>" />
+  <script>
+    // Set the theme before the page paints, so there's no light/dark flash.
+    // "auto" = light from 6:00 AM to 5:59 PM on this device's clock, dark otherwise.
+    (function () {
+      var choice = 'auto';
+      try { choice = localStorage.getItem('poetry-theme') || 'auto'; } catch (e) {}
+      var h = new Date().getHours();
+      var theme = choice === 'light' || choice === 'dark' ? choice : h >= 6 && h < 18 ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --surface: #ffffff;
+      --text: #2b2a28;
+      --muted: #736f68;
+      --line: #e8e3da;
+      --accent: #c2410c;
+      --accent-soft: #fdf0e8;
+      --chip: #f3efe7;
+      --warn-bg: #fff7e6;
+      --warn-line: #f2c46d;
+      --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+      --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color-scheme: light;
+    }
+    :root[data-theme='dark'] {
+      --bg: #161514;
+      --surface: #1f1e1c;
+      --text: #ece8e1;
+      --muted: #a39e96;
+      --line: #33302c;
+      --accent: #fb923c;
+      --accent-soft: #3a2618;
+      --chip: #2a2826;
+      --warn-bg: #2d2416;
+      --warn-line: #8a6a2b;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; transition: background-color 0.25s, color 0.25s; }
+    .page { max-width: 660px; margin: 0 auto; padding: 32px 16px 64px; }
+    a { color: var(--accent); }
+
+    /* Top bar + theme switcher */
+    .topbar { display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .theme-hint { font-size: 0.78rem; color: var(--muted); }
+    .switch { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+    .switch button {
+      font: inherit; font-size: 0.8rem; border: 0; background: none; color: var(--muted);
+      padding: 4px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .switch button[aria-pressed='true'] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+    .switch button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    header { margin-bottom: 20px; }
+    .eyebrow { margin: 0; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    h1 { margin: 6px 0 8px; font-family: var(--serif); font-weight: 500; font-size: 2.4rem; line-height: 1.15; }
+    .lede { margin: 0; color: var(--muted); }
+
+    .banner { margin: 0 0 28px; padding: 12px 16px; border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 12px; font-size: 0.9rem; }
+
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .controls h2 { margin: 0; font-size: 1rem; }
+    .controls h2 span { font-weight: 400; color: var(--muted); }
+    select { font: inherit; font-size: 0.88rem; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; max-width: 100%; }
+
+    .notice { padding: 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); }
+    code { font-family: ui-monospace, Menlo, monospace; font-size: 0.88em; background: var(--chip); padding: 1px 6px; border-radius: 6px; }
+
+    /* Timeline */
+    .timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 1px solid var(--line); }
+    .entry { position: relative; margin-bottom: 28px; }
+    .dot { position: absolute; left: -29px; top: 26px; width: 13px; height: 13px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+    .entry:first-child .dot { background: var(--accent); border-color: var(--accent); }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 18px; }
+    .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
+    .badge { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--chip); }
+    .badge--ai { background: var(--accent-soft); color: var(--accent); }
+    .poem-title { margin: 12px 0 10px; font-family: var(--serif); font-weight: 500; font-size: 1.45rem; line-height: 1.25; }
+    .poem { margin: 0 0 14px; font-family: var(--serif); font-size: 1.08rem; line-height: 1.75; }
+    .poem span { display: block; }
+    .weather { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 12px 0 0; border-top: 1px solid var(--line); list-style: none; }
+    .weather li { font-size: 0.8rem; padding: 3px 10px; border-radius: 999px; background: var(--chip); }
+    .made-by { margin: 10px 0 0; font-size: 0.75rem; color: var(--muted); }
+
+    /* Info sections */
+    .info { margin-top: 44px; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; font-size: 0.9rem; }
+    .info h2 { margin: 0 0 12px; font-size: 1.15rem; }
+    .info ul { margin: 0; padding-left: 18px; }
+    .info li { margin-bottom: 8px; }
+    .stack { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; margin: 0; }
+    .stack dt { font-weight: 600; }
+    .stack dd { margin: 0; color: var(--muted); }
+
+    footer { margin-top: 32px; font-size: 0.8rem; color: var(--muted); text-align: center; }
+    footer p { margin: 4px 0; }
+    footer a { color: inherit; }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 1.9rem; }
+      .card { padding: 18px 16px 14px; }
+      .stack { grid-template-columns: 1fr; }
+      .stack dd { margin-bottom: 8px; }
+      .topbar { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <span class="theme-hint" id="theme-hint" aria-live="polite"></span>
+      <div class="switch" role="group" aria-label="Color theme">
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="light">Light</button>
+        <button type="button" data-theme-choice="dark">Dark</button>
+      </div>
+    </div>
+
+    <header>
+      <p class="eyebrow">AI-generated · Every Monday</p>
+      <h1>Weather Poetry Diary</h1>
+      <p class="lede">Every Monday morning, a short poem inspired by that day’s weather in a different Philippine city. Only the latest 5 poems are kept.</p>
+    </header>
+
+    <p class="banner" role="note">
+      <strong>Every poem on this page is written entirely by AI.</strong> No person writes, edits, or reviews them.
+      They are AI-generated content pieces, not weather forecasts. <a href="#disclaimer">Read the disclaimer</a>
+    </p>
+
+    <div class="controls">
+      <h2>Poems <span id="count"></span></h2>
+      <label>
+        <span class="visually-hidden" style="position:absolute;left:-9999px">Filter by city</span>
+        <select id="city-filter" aria-label="Filter by city">
+          <option value="">All cities</option>
+        </select>
+      </label>
+    </div>
+
+    <main id="app"><p class="notice">Loading poems…</p></main>
+
+    <section class="info" aria-labelledby="stack-title">
+      <h2 id="stack-title">How this is made (tech stack)</h2>
+      <dl class="stack">
+        <dt>Schedule</dt>
+        <dd>A <a href="https://docs.github.com/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a> job runs every Monday at about 7:00 AM Philippine time and writes one poem. It can also be run by hand. The site owner can pause or switch off this automation at any time, without notice.</dd>
+        <dt>Cities</dt>
+        <dd>A fixed list of cities across the Philippines, picked arbitrarily for geographic variety. Each week uses the next city in the list. Being on the list isn’t a ranking or a preference, and leaving a city out means nothing either.</dd>
+        <dt>Weather data</dt>
+        <dd><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> forecast API (free, no account), one request per poem.</dd>
+        <dt>AI model</dt>
+        <dd><code>gpt-oss-20b</code>, an open-weight model by OpenAI (Apache 2.0), reached through the free
+          <a href="https://pollinations.ai/" target="_blank" rel="noopener noreferrer">Pollinations</a> text API. It receives only the city name and weather numbers.</dd>
+        <dt>Safety checks</dt>
+        <dd>A strict system prompt, then code that rejects any poem naming people, brands, or other places, or containing numbers, links, politics, or dark themes. If the weather or the AI fails, nothing is published.</dd>
+        <dt>Storage</dt>
+        <dd>A JSON file in the project’s repository, no database, capped at the 5 most recent poems. The oldest is removed automatically.</dd>
+        <dt>Website</dt>
+        <dd>One static HTML page with built-in CSS and JavaScript, no frameworks, hosted on GitHub Pages. The scripts run on Node.js with no external packages.</dd>
+      </dl>
+    </section>
+
+    <section class="info" id="disclaimer" aria-labelledby="disclaimer-title">
+      <h2 id="disclaimer-title">Disclaimer</h2>
+      <ul>
+        <li><strong>100% AI-generated.</strong> Every poem is written automatically by an AI language model. No human writes, edits, curates, or reviews any poem before or after it appears here.</li>
+        <li><strong>Not a weather forecast.</strong> The weather details come from Open-Meteo’s forecast for that day and may be inaccurate or out of date. The poems are creative interpretations. Never use this page for safety, travel, or planning decisions. For official forecasts and warnings, check <a href="https://www.pagasa.dost.gov.ph/" target="_blank" rel="noopener noreferrer">PAGASA</a>.</li>
+        <li><strong>Not fact, not advice.</strong> Nothing here is a statement of fact or advice of any kind.</li>
+        <li><strong>Originality isn’t guaranteed.</strong> The AI is instructed to write original lines, but AI output can unintentionally resemble existing works. Any resemblance is unintended.</li>
+        <li><strong>No real people or brands intended.</strong> Poems are checked to exclude names of people, companies, and products. Any resemblance to real people or organizations is coincidental.</li>
+        <li><strong>Not affiliated with anyone.</strong> City names are used only as places, from an arbitrary list that isn’t a ranking or recommendation. This project is not affiliated with or endorsed by any city, local government, PAGASA, Open-Meteo, Pollinations, or OpenAI.</li>
+        <li><strong>Mock entries are placeholders.</strong> Poems marked “mock” are sample text used only for local testing. They are not AI-generated and don’t reflect real weather.</li>
+        <li><strong>No tracking.</strong> This page has no accounts, cookies, ads, or analytics. Your theme choice is saved only in your own browser. The hosting provider (GitHub Pages) may keep standard server logs.</li>
+        <li><strong>Automation can stop at any time.</strong> New poems are created automatically, but the site owner may pause, change, or permanently switch off the automation at any time and without notice. There is no guarantee that a new poem will appear on any given Monday, or ever again.</li>
+        <li><strong>Provided “as is”.</strong> This is an experimental hobby project with no warranty of accuracy or availability.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo.com</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>).</p>
+      <p>All poems are AI-generated via <a href="https://pollinations.ai/" target="_blank" rel="noopener noreferrer">Pollinations</a> and are not reviewed by a person.</p>
+    </footer>
+  </div>
+
+  <script>
+    // ---------- Theme: Auto (time-based) / Light / Dark ----------
+    const THEME_KEY = 'poetry-theme';
+    const hint = document.getElementById('theme-hint');
+    let themeTimer = null;
+
+    const storage = {
+      get() { try { return localStorage.getItem(THEME_KEY); } catch { return null; } },
+      set(v) { try { localStorage.setItem(THEME_KEY, v); } catch { /* private mode: just don't remember */ } },
+    };
+
+    const timeTheme = (d = new Date()) => (d.getHours() >= 6 && d.getHours() < 18 ? 'light' : 'dark');
+
+    // Milliseconds until the next 6:00 AM or 6:00 PM switch on this device's clock.
+    function msUntilNextSwitch(now = new Date()) {
+      const next = new Date(now);
+      const h = now.getHours();
+      if (h < 6) next.setHours(6, 0, 0, 0);
+      else if (h < 18) next.setHours(18, 0, 0, 0);
+      else { next.setDate(next.getDate() + 1); next.setHours(6, 0, 0, 0); }
+      return next - now;
+    }
+
+    function applyTheme(choice) {
+      const theme = choice === 'light' || choice === 'dark' ? choice : timeTheme();
+      document.documentElement.setAttribute('data-theme', theme);
+      document.querySelectorAll('[data-theme-choice]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === choice)));
+      hint.textContent = choice === 'auto' ? `Auto: ${theme} (${theme === 'light' ? 'daytime' : 'evening'})` : '';
+
+      // In Auto, flip once at the next 6 AM / 6 PM. A single timer, not a polling loop.
+      clearTimeout(themeTimer);
+      if (choice === 'auto') themeTimer = setTimeout(() => applyTheme('auto'), msUntilNextSwitch() + 1000);
+    }
+
+    document.querySelectorAll('[data-theme-choice]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        storage.set(btn.dataset.themeChoice);
+        applyTheme(btn.dataset.themeChoice);
+      })
+    );
+    applyTheme(storage.get() || 'auto');
+
+    // ---------- Poems ----------
+    const app = document.getElementById('app');
+    const filter = document.getElementById('city-filter');
+    const countEl = document.getElementById('count');
+    const dateFmt = new Intl.DateTimeFormat('en-PH', { timeZone: 'Asia/Manila', weekday: 'long', month: 'long', day: 'numeric' });
+    const timeFmt = new Intl.DateTimeFormat('en-PH', { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit' });
+    let allPoems = [];
+
+    // Builds elements with textContent only, so poem text can never inject HTML.
+    function el(tag, props = {}, children = []) {
+      const node = document.createElement(tag);
+      for (const [k, v] of Object.entries(props)) {
+        if (k === 'text') node.textContent = v;
+        else node.setAttribute(k, v);
+      }
+      for (const child of [].concat(children)) if (child) node.append(child);
+      return node;
+    }
+
+    function weatherChips(w) {
+      if (!w) return null;
+      const chips = [
+        `${w.icon ?? ''} ${w.description}`.trim(),
+        w.tempMin != null && w.tempMax != null && `${Math.round(w.tempMin)}–${Math.round(w.tempMax)}°C`,
+        w.humidity != null && `💧 ${w.humidity}% humidity`,
+        w.rainChance != null && `☔ ${w.rainChance}% rain`,
+        w.windMax != null && `🍃 ${Math.round(w.windMax)} km/h`,
+        w.sunrise && w.sunset && `🌅 ${w.sunrise} – ${w.sunset}`,
+      ].filter(Boolean);
+      return el('ul', { class: 'weather', 'aria-label': 'Forecast that inspired this poem' }, chips.map((c) => el('li', { text: c })));
+    }
+
+    function renderEntry(p) {
+      const when = new Date(p.date);
+      const isAI = p.source === 'ai';
+      const meta = el('div', { class: 'meta' }, [
+        el('time', { datetime: p.date, text: `${dateFmt.format(when)} · ${timeFmt.format(when)}` }),
+        el('span', { class: `badge${isAI ? ' badge--ai' : ''}`, text: isAI ? 'AI-generated' : 'mock (not AI)' }),
+        p.location?.name && el('span', { text: `📍 ${p.location.name}${p.location.region ? ', ' + p.location.region : ''}` }),
+      ]);
+      const madeBy = isAI
+        ? `Written by AI (${String(p.model || 'unknown model').replace(/^pollinations\//, '')} via Pollinations). Weather: Open-Meteo forecast.`
+        : 'Placeholder text and sample weather for local testing.';
+      return el('li', { class: 'entry' }, [
+        el('span', { class: 'dot', 'aria-hidden': 'true' }),
+        el('article', { class: 'card' }, [
+          meta,
+          el('h3', { class: 'poem-title', text: p.title }),
+          el('p', { class: 'poem' }, (p.lines ?? []).map((line) => el('span', { text: line }))),
+          weatherChips(p.weather),
+          el('p', { class: 'made-by', text: madeBy }),
+        ]),
+      ]);
+    }
+
+    function showNotice(html) {
+      const n = el('p', { class: 'notice' });
+      n.innerHTML = html; // hardcoded messages only, never poem data
+      app.replaceChildren(n);
+    }
+
+    function render() {
+      const city = filter.value;
+      const list = city ? allPoems.filter((p) => p.location?.name === city) : allPoems;
+      countEl.textContent = `(${list.length})`;
+      if (list.length === 0) {
+        showNotice(allPoems.length
+          ? 'No poems for this city among the latest 5.'
+          : 'No poems yet. Run <code>npm run generate</code> (or <code>npm run generate:mock</code> for offline testing), then refresh.');
+        return;
+      }
+      app.replaceChildren(el('ol', { class: 'timeline' }, list.map(renderEntry)));
+    }
+
+    function buildFilter() {
+      const counts = new Map();
+      for (const p of allPoems) if (p.location?.name) counts.set(p.location.name, (counts.get(p.location.name) ?? 0) + 1);
+      const names = [...counts.keys()].sort((a, b) => a.localeCompare(b));
+      filter.replaceChildren(
+        el('option', { value: '', text: `All cities (${allPoems.length})` }),
+        ...names.map((n) => el('option', { value: n, text: `${n} (${counts.get(n)})` }))
+      );
+    }
+
+    filter.addEventListener('change', render);
+
+    if (location.protocol === 'file:') {
+      showNotice('This page needs the local server to read <code>poems.json</code>. Run <code>npm run serve</code> and open <code>http://127.0.0.1:8080</code>.');
+    } else {
+      fetch(`poems.json?t=${Date.now()}`)
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then((poems) => {
+          allPoems = (Array.isArray(poems) ? poems : []).sort((a, b) => new Date(b.date) - new Date(a.date));
+          buildFilter();
+          render();
+        })
+        .catch(() => showNotice('Couldn’t load <code>poems.json</code>. Is <code>npm run serve</code> running?'));
+    }
+  </script>
+</body>
+</html>

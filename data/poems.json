@@ -1,0 +1,80 @@
+[
+  {
+    "id": "93f90c52-df3a-4cd1-bdde-ace51297a965",
+    "date": "2026-10-15T13:06:42.660Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Baguio",
+      "region": "Benguet",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-10-15",
+      "code": 55,
+      "description": "heavy drizzle",
+      "icon": "🌧️",
+      "tempNow": 16.7,
+      "tempMax": 22.5,
+      "tempMin": 14.5,
+      "humidity": 88,
+      "windMax": 8.6,
+      "rainChance": 100,
+      "rainMm": 2.9,
+      "uvMax": 8.3,
+      "sunrise": "05:50",
+      "sunset": "17:36"
+    },
+    "title": "Morning Drizzle",
+    "lines": [
+      "Soft mist curls over the town in Baguio.",
+      "The sky pours a steady, heavy drizzle, each drop a silver bead.",
+      "The air feels warm, bright, yet cool under the clouds.",
+      "A gentle breeze sweeps the streets, carrying the scent of pine.",
+      "Sunlight peeks through the mist, painting the rooftops in pale gold.",
+      "Even the trees seem to sigh, their leaves shimmering with moisture.",
+      "As the day moves toward dusk, the glaze turns into a soft, dusty glow.",
+      "The city hums softly, and the drizzle hushes the world."
+    ],
+    "model": "pollinations/gpt-oss-20b"
+  },
+  {
+    "id": "532a88c7-8c98-4916-967a-6fafbd849f1a",
+    "date": "2026-10-15T13:07:39.860Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Vigan",
+      "region": "Ilocos Sur",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-10-15",
+      "code": 0,
+      "description": "clear sky",
+      "icon": "☀️",
+      "tempNow": 27.1,
+      "tempMax": 32,
+      "tempMin": 23.7,
+      "humidity": 77,
+      "windMax": 15.6,
+      "rainChance": 6,
+      "rainMm": 0,
+      "uvMax": 7.95,
+      "sunrise": "05:51",
+      "sunset": "17:36"
+    },
+    "title": "A Bright Vigan Morning",
+    "lines": [
+      "Early light twirls through the old stone streets, a clear blue canvas.",
+      "A soft wind lifts the scent of sea and tropical blossoms.",
+      "The air feels heavy, moist, resting upon the warm pavements.",
+      "Birds pause, wings folding, listening to the steady hum of the day.",
+      "Shadows stretch long, a quiet rhythm across rooftops.",
+      "The sky remains unbroken, a pure horizon open to wandering.",
+      "Dusk will soon creep, painting the horizon with amber glow.",
+      "The day settles, calm and gentle, as if holding a secret."
+    ],
+    "model": "pollinations/gpt-oss-20b"
+  }
+]
