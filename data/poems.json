@@ -115,5 +115,44 @@
       "The night settles with a calm, soft hush that feels like sleep."
     ],
     "model": "pollinations/gpt-oss-20b"
+  },
+  {
+    "id": "7b6d2620-2038-4a5d-91f4-4cb52acb9e30",
+    "date": "2026-10-19T00:45:25.476Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Tagaytay",
+      "region": "Cavite",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-10-19",
+      "code": 53,
+      "description": "drizzle",
+      "icon": "🌦️",
+      "tempNow": 23.7,
+      "tempMax": 26.5,
+      "tempMin": 21.1,
+      "humidity": 91,
+      "windMax": 18.7,
+      "rainChance": 71,
+      "rainMm": 2.6,
+      "uvMax": 8.25,
+      "sunrise": "05:48",
+      "sunset": "17:34"
+    },
+    "title": "Tagaytay Drizzle",
+    "lines": [
+      "Dawn unfurls a mist over the hills",
+      "A gentle drizzle whispers against stone",
+      "The breeze lifts leaves in slow, soft shivers",
+      "The sky weaves thin clouds that cling to the horizon",
+      "Windows glow with rain‑slicked light",
+      "A distant bird scatters on the wind",
+      "The day hums with cool, damp breath",
+      "Sunset drapes the hills in muted gold"
+    ],
+    "model": "pollinations/gpt-oss-20b"
   }
 ]
