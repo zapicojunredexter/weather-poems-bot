@@ -154,5 +154,44 @@
       "Sunset drapes the hills in muted gold"
     ],
     "model": "pollinations/gpt-oss-20b"
+  },
+  {
+    "id": "589f44f5-c0fd-4230-baaa-57bdbe31a796",
+    "date": "2026-10-26T00:57:55.127Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Legazpi",
+      "region": "Albay",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-10-26",
+      "code": 51,
+      "description": "light drizzle",
+      "icon": "🌦️",
+      "tempNow": 28.5,
+      "tempMax": 30.5,
+      "tempMin": 25.2,
+      "humidity": 80,
+      "windMax": 16.2,
+      "rainChance": 39,
+      "rainMm": 0.3,
+      "uvMax": 8.1,
+      "sunrise": "05:37",
+      "sunset": "17:20"
+    },
+    "title": "Gentle Legazpi",
+    "lines": [
+      "Dawn spills pale gold across the streets, a shy blush that lingers.",
+      "A light rain whispers against windowpanes, each droplet a soft kiss.",
+      "The air feels thick, a warm blanket wrapped around the city.",
+      "A steady breeze bends the trees, coaxing leaves to flutter.",
+      "The sun, shy yet present, keeps a gentle promise in the sky.",
+      "The sea hums a low rhythm, echoing the day’s quiet pulse.",
+      "Footsteps echo on wet tiles, a lullaby of soft summer.",
+      "As twilight approaches, the drizzle quiets, leaving only soft reflected light."
+    ],
+    "model": "pollinations/gpt-oss-20b"
   }
 ]
