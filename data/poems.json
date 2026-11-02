@@ -1,44 +1,5 @@
 [
   {
-    "id": "93f90c52-df3a-4cd1-bdde-ace51297a965",
-    "date": "2026-10-15T13:06:42.660Z",
-    "mode": "live",
-    "source": "ai",
-    "location": {
-      "name": "Baguio",
-      "region": "Benguet",
-      "country": "Philippines"
-    },
-    "weather": {
-      "date": "2026-10-15",
-      "code": 55,
-      "description": "heavy drizzle",
-      "icon": "🌧️",
-      "tempNow": 16.7,
-      "tempMax": 22.5,
-      "tempMin": 14.5,
-      "humidity": 88,
-      "windMax": 8.6,
-      "rainChance": 100,
-      "rainMm": 2.9,
-      "uvMax": 8.3,
-      "sunrise": "05:50",
-      "sunset": "17:36"
-    },
-    "title": "Morning Drizzle",
-    "lines": [
-      "Soft mist curls over the town in Baguio.",
-      "The sky pours a steady, heavy drizzle, each drop a silver bead.",
-      "The air feels warm, bright, yet cool under the clouds.",
-      "A gentle breeze sweeps the streets, carrying the scent of pine.",
-      "Sunlight peeks through the mist, painting the rooftops in pale gold.",
-      "Even the trees seem to sigh, their leaves shimmering with moisture.",
-      "As the day moves toward dusk, the glaze turns into a soft, dusty glow.",
-      "The city hums softly, and the drizzle hushes the world."
-    ],
-    "model": "pollinations/gpt-oss-20b"
-  },
-  {
     "id": "532a88c7-8c98-4916-967a-6fafbd849f1a",
     "date": "2026-10-15T13:07:39.860Z",
     "mode": "live",
@@ -191,6 +152,45 @@
       "The sea hums a low rhythm, echoing the day’s quiet pulse.",
       "Footsteps echo on wet tiles, a lullaby of soft summer.",
       "As twilight approaches, the drizzle quiets, leaving only soft reflected light."
+    ],
+    "model": "pollinations/gpt-oss-20b"
+  },
+  {
+    "id": "f0cc57ab-e10b-4181-88f2-411b38136ce4",
+    "date": "2026-11-02T02:03:52.750Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Puerto Princesa",
+      "region": "Palawan",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-11-02",
+      "code": 55,
+      "description": "heavy drizzle",
+      "icon": "🌧️",
+      "tempNow": 28.3,
+      "tempMax": 29.3,
+      "tempMin": 24.2,
+      "humidity": 81,
+      "windMax": 11.3,
+      "rainChance": 100,
+      "rainMm": 5.2,
+      "uvMax": 8.3,
+      "sunrise": "05:55",
+      "sunset": "17:41"
+    },
+    "title": "Heavy Drizzle",
+    "lines": [
+      "The sky drips over Puerto Princesa in a gentle lace.",
+      "Morning light slips through mist, shy as a secret.",
+      "Heat settles like a soft blanket, salt and humidity whispering.",
+      "Wind shuffles leaves, a hushed conversation in green.",
+      "Streets hum beneath the steady rhythm of rain.",
+      "The sea shivers, echoing the muted silver above.",
+      "As sun leans back, dusk curls around the horizon.",
+      "The day dissolves into a quiet, damp embrace."
     ],
     "model": "pollinations/gpt-oss-20b"
   }
