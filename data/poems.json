@@ -1,44 +1,5 @@
 [
   {
-    "id": "532a88c7-8c98-4916-967a-6fafbd849f1a",
-    "date": "2026-10-15T13:07:39.860Z",
-    "mode": "live",
-    "source": "ai",
-    "location": {
-      "name": "Vigan",
-      "region": "Ilocos Sur",
-      "country": "Philippines"
-    },
-    "weather": {
-      "date": "2026-10-15",
-      "code": 0,
-      "description": "clear sky",
-      "icon": "☀️",
-      "tempNow": 27.1,
-      "tempMax": 32,
-      "tempMin": 23.7,
-      "humidity": 77,
-      "windMax": 15.6,
-      "rainChance": 6,
-      "rainMm": 0,
-      "uvMax": 7.95,
-      "sunrise": "05:51",
-      "sunset": "17:36"
-    },
-    "title": "A Bright Vigan Morning",
-    "lines": [
-      "Early light twirls through the old stone streets, a clear blue canvas.",
-      "A soft wind lifts the scent of sea and tropical blossoms.",
-      "The air feels heavy, moist, resting upon the warm pavements.",
-      "Birds pause, wings folding, listening to the steady hum of the day.",
-      "Shadows stretch long, a quiet rhythm across rooftops.",
-      "The sky remains unbroken, a pure horizon open to wandering.",
-      "Dusk will soon creep, painting the horizon with amber glow.",
-      "The day settles, calm and gentle, as if holding a secret."
-    ],
-    "model": "pollinations/gpt-oss-20b"
-  },
-  {
     "id": "4b43260a-de39-4bf0-bab0-0ac1ec8bde4b",
     "date": "2026-10-15T13:58:15.835Z",
     "mode": "live",
@@ -191,6 +152,45 @@
       "The sea shivers, echoing the muted silver above.",
       "As sun leans back, dusk curls around the horizon.",
       "The day dissolves into a quiet, damp embrace."
+    ],
+    "model": "pollinations/gpt-oss-20b"
+  },
+  {
+    "id": "d2e4b741-5aaa-46aa-8469-f4231d17f2f8",
+    "date": "2026-11-09T02:20:29.817Z",
+    "mode": "live",
+    "source": "ai",
+    "location": {
+      "name": "Iloilo City",
+      "region": "Iloilo",
+      "country": "Philippines"
+    },
+    "weather": {
+      "date": "2026-11-09",
+      "code": 51,
+      "description": "light drizzle",
+      "icon": "🌦️",
+      "tempNow": 29.6,
+      "tempMax": 30.8,
+      "tempMin": 24.2,
+      "humidity": 68,
+      "windMax": 24.4,
+      "rainChance": 62,
+      "rainMm": 0.2,
+      "uvMax": 7.95,
+      "sunrise": "05:42",
+      "sunset": "17:23"
+    },
+    "title": "Drizzle in Iloilo",
+    "lines": [
+      "Morning mist weaves through the city streets.",
+      "A gentle curtain lifts the sun to a pale glow.",
+      "The air hums with a soft, damp sigh.",
+      "Trees ripple as wind tiptoes among the leaves.",
+      "The sea mirrors a quiet sheen of wet glass.",
+      "Footsteps echo as puddles ripple like glass beads.",
+      "Lanterns gleam as the day drifts toward evening.",
+      "Even the clouds blush in a tender hush."
     ],
     "model": "pollinations/gpt-oss-20b"
   }
